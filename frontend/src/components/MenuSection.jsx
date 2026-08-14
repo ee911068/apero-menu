@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+import { waOrderLink } from "../data/menu";
 
 const MenuSection = ({ category, items, onSelect }) => {
   const ref = useRef(null);
@@ -56,17 +57,20 @@ const MenuSection = ({ category, items, onSelect }) => {
         </AnimatePresence>
 
         {items.map((item, i) => (
-          <motion.button
+          <motion.div
             key={item.id}
             data-testid={`menu-item-${item.id}`}
+            role="button"
+            tabIndex={0}
             onClick={() => onSelect(item, category)}
+            onKeyDown={(e) => e.key === "Enter" && onSelect(item, category)}
             onMouseEnter={() => setHovered(item)}
             onMouseLeave={() => setHovered(null)}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.55, delay: i * 0.06 }}
-            className="group relative w-full text-left border-b border-olive/20 overflow-hidden"
+            className="group relative w-full text-left border-b border-olive/20 overflow-hidden cursor-pointer"
           >
             <span className="absolute inset-0 bg-olive origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
             <span className="relative z-10 grid grid-cols-[auto_1fr_auto] md:grid-cols-[64px_1fr_1fr_auto] items-center gap-4 md:gap-8 py-6 md:py-8 px-2 md:px-4">
@@ -84,12 +88,23 @@ const MenuSection = ({ category, items, onSelect }) => {
               <span className="hidden md:block text-sm font-light text-olive/70 group-hover:text-cream/80 transition-colors line-clamp-2">
                 {item.description}
               </span>
-              <span className="flex items-center gap-3 font-bold text-sm md:text-lg tracking-wide group-hover:text-cream transition-colors">
+              <span className="flex items-center gap-3 md:gap-4 font-bold text-sm md:text-lg tracking-wide group-hover:text-cream transition-colors">
                 {item.price}
-                <ArrowUpRight size={18} className="opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all text-terra" />
+                <a
+                  data-testid={`wa-order-${item.id}`}
+                  href={waOrderLink(item)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  aria-label={`Pedir ${item.name} por WhatsApp`}
+                  className="flex items-center gap-1.5 bg-terra text-cream text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1.5 md:px-3 md:py-2 hover:bg-cream hover:text-olive transition-colors"
+                >
+                  <MessageCircle size={14} /> <span className="hidden sm:inline">Pedir</span>
+                </a>
+                <ArrowUpRight size={18} className="hidden md:block opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all text-terra" />
               </span>
             </span>
-          </motion.button>
+          </motion.div>
         ))}
       </div>
     </section>

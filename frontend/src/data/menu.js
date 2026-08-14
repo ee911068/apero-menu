@@ -1,3 +1,10 @@
+export const WHATSAPP_URL = "https://wa.me/18296406701";
+
+export const waOrderLink = (item) =>
+  `${WHATSAPP_URL}?text=${encodeURIComponent(
+    `Hola APERO, quiero pedir: ${item.name} (${item.price}). ¡Gracias!`
+  )}`;
+
 export const CATEGORIES = [
   { id: "burgers", label: "Burgers", number: "01" },
   { id: "chicken", label: "Chicken", number: "02" },

@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, MessageCircle } from "lucide-react";
+import { waOrderLink } from "../data/menu";
 
 const ItemModal = ({ item, category, onClose }) => (
   <AnimatePresence>
@@ -68,14 +69,25 @@ const ItemModal = ({ item, category, onClose }) => (
                 </ul>
               )}
             </div>
-            <div className="flex items-end justify-between border-t border-olive/20 pt-6">
-              <div>
-                <p className="text-[10px] tracking-[0.3em] uppercase text-olive/60 mb-1">Precio</p>
-                <p className="font-display text-3xl md:text-4xl tracking-tight" data-testid="item-modal-price">{item.price}</p>
+            <div>
+              <div className="flex items-end justify-between border-t border-olive/20 pt-6">
+                <div>
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-olive/60 mb-1">Precio</p>
+                  <p className="font-display text-3xl md:text-4xl tracking-tight" data-testid="item-modal-price">{item.price}</p>
+                </div>
+                <p className="text-[10px] tracking-[0.2em] uppercase text-olive/50 text-right">
+                  Buena comida,<br />buenos momentos.
+                </p>
               </div>
-              <p className="text-[10px] tracking-[0.2em] uppercase text-olive/50 text-right">
-                Buena comida,<br />buenos momentos.
-              </p>
+              <a
+                data-testid="item-modal-whatsapp"
+                href={waOrderLink(item)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"
+              >
+                <MessageCircle size={16} /> Pedir por WhatsApp
+              </a>
             </div>
           </div>
         </motion.div>

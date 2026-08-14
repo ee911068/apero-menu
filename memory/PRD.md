@@ -21,6 +21,7 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 - Tipografías: Playfair Display + Montserrat (según manual)
 
 ## Implementado (2026-08-14)
+- Pedidos por WhatsApp: botón "PEDIR" en cada fila del menú y botón grande "Pedir por WhatsApp" en cada pop-up, abren wa.me/18296406701 con mensaje pre-llenado (nombre + precio del platillo)
 - Hero cinético con reveal línea por línea enmascarado, mascota con parallax + flotación, badge circular giratorio "Te esperan en Apero"
 - Navegación sticky por categorías con scrollspy y scroll suave (lenis)
 - 6 capítulos del menú: Burgers, Chicken, Salsas, Guarniciones, Bebidas, Niños (precios RD$ exactos del PDF)
