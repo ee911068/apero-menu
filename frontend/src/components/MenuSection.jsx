@@ -2,8 +2,11 @@ import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 import { waOrderLink } from "../data/menu";
+import { useLang, UI } from "../data/i18n";
 
 const MenuSection = ({ category, items, onSelect }) => {
+  const { lang } = useLang();
+  const t = UI[lang];
   const ref = useRef(null);
   const [hovered, setHovered] = useState(null);
   const mx = useMotionValue(0);
@@ -34,7 +37,7 @@ const MenuSection = ({ category, items, onSelect }) => {
       >
         <span className="font-display text-6xl md:text-8xl text-outline leading-none">{category.number}</span>
         <div>
-          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-terra mb-1">Capítulo {category.number}</p>
+          <p className="text-[10px] md:text-xs tracking-[0.3em] uppercase text-terra mb-1">{t.chapter} {category.number}</p>
           <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl tracking-tighter leading-none">{category.label}</h2>
         </div>
       </motion.div>
@@ -92,14 +95,14 @@ const MenuSection = ({ category, items, onSelect }) => {
                 {item.price}
                 <a
                   data-testid={`wa-order-${item.id}`}
-                  href={waOrderLink(item)}
+                  href={waOrderLink(item, lang)}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
-                  aria-label={`Pedir ${item.name} por WhatsApp`}
+                  aria-label={lang === "es" ? `Pedir ${item.name} por WhatsApp` : `Order ${item.name} on WhatsApp`}
                   className="flex items-center gap-1.5 bg-terra text-cream text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1.5 md:px-3 md:py-2 hover:bg-cream hover:text-olive transition-colors"
                 >
-                  <MessageCircle size={14} /> <span className="hidden sm:inline">Pedir</span>
+                  <MessageCircle size={14} /> <span className="hidden sm:inline">{t.order}</span>
                 </a>
                 <ArrowUpRight size={18} className="hidden md:block opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all text-terra" />
               </span>

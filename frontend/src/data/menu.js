@@ -1,9 +1,12 @@
 export const WHATSAPP_URL = "https://wa.me/18296406701";
 
-export const waOrderLink = (item) =>
-  `${WHATSAPP_URL}?text=${encodeURIComponent(
-    `Hola APERO, quiero pedir: ${item.name} (${item.price}). ¡Gracias!`
-  )}`;
+export const waOrderLink = (item, lang = "es") => {
+  const msg =
+    lang === "es"
+      ? `Hola APERO, quiero pedir: ${item.name} (${item.price}). ¡Gracias!`
+      : `Hi APERO, I'd like to order: ${item.name} (${item.price}). Thanks!`;
+  return `${WHATSAPP_URL}?text=${encodeURIComponent(msg)}`;
+};
 
 export const CATEGORIES = [
   { id: "burgers", label: "Burgers", number: "01" },

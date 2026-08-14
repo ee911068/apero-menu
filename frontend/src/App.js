@@ -7,16 +7,21 @@ import MenuSection from "./components/MenuSection";
 import ItemModal from "./components/ItemModal";
 import Manifesto from "./components/Manifesto";
 import Footer from "./components/Footer";
-import { CATEGORIES, MENU } from "./data/menu";
+import { MENU } from "./data/menu";
+import { LangContext, UI, CATEGORIES_I18N, MENU_EN } from "./data/i18n";
 
 function App() {
   const [selected, setSelected] = useState(null);
+  const [lang, setLang] = useState("es");
+  const t = UI[lang];
+  const categories = CATEGORIES_I18N[lang];
+  const menu = lang === "es" ? MENU : MENU_EN;
 
   useEffect(() => {
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
     window.__lenis = lenis;
     let raf;
-    const loop = (t) => { lenis.raf(t); raf = requestAnimationFrame(loop); };
+    const loop = (time) => { lenis.raf(time); raf = requestAnimationFrame(loop); };
     raf = requestAnimationFrame(loop);
     return () => { cancelAnimationFrame(raf); lenis.destroy(); window.__lenis = null; };
   }, []);
@@ -26,31 +31,37 @@ function App() {
     else window.__lenis?.start();
   }, [selected]);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   return (
-    <div className="bg-cream text-olive min-h-screen">
-      <div className="grain-overlay" />
-      <CategoryNav />
-      <main>
-        <Hero />
-        <Marquee text="BUENA COMIDA, BUENOS MOMENTOS" />
-        {CATEGORIES.map((cat) => (
-          <MenuSection
-            key={cat.id}
-            category={cat}
-            items={MENU[cat.id]}
-            onSelect={(item, category) => setSelected({ item, category })}
-          />
-        ))}
-        <Manifesto />
-        <Marquee text="TE ESPERAN EN APERO" dark slow />
-      </main>
-      <Footer />
-      <ItemModal
-        item={selected?.item}
-        category={selected?.category}
-        onClose={() => setSelected(null)}
-      />
-    </div>
+    <LangContext.Provider value={{ lang, setLang }}>
+      <div className="bg-cream text-olive min-h-screen">
+        <div className="grain-overlay" />
+        <CategoryNav categories={categories} />
+        <main>
+          <Hero />
+          <Marquee text={t.marquee1} />
+          {categories.map((cat) => (
+            <MenuSection
+              key={cat.id}
+              category={cat}
+              items={menu[cat.id]}
+              onSelect={(item, category) => setSelected({ item, category })}
+            />
+          ))}
+          <Manifesto />
+          <Marquee text={t.marquee2} dark slow />
+        </main>
+        <Footer />
+        <ItemModal
+          item={selected?.item}
+          category={selected?.category}
+          onClose={() => setSelected(null)}
+        />
+      </div>
+    </LangContext.Provider>
   );
 }
 

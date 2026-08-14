@@ -21,6 +21,7 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 - Tipografías: Playfair Display + Montserrat (según manual)
 
 ## Implementado (2026-08-14)
+- Versión bilingüe ES/EN: interruptor ES|EN en la barra superior traduce todo al instante (hero, navegación, capítulos, platillos, pop-ups, manifiesto, footer, marquees y el mensaje de WhatsApp)
 - Pedidos por WhatsApp: botón "PEDIR" en cada fila del menú y botón grande "Pedir por WhatsApp" en cada pop-up, abren wa.me/18296406701 con mensaje pre-llenado (nombre + precio del platillo)
 - Hero cinético con reveal línea por línea enmascarado, mascota con parallax + flotación, badge circular giratorio "Te esperan en Apero"
 - Navegación sticky por categorías con scrollspy y scroll suave (lenis)
@@ -39,7 +40,6 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 ## Backlog
 - P0: —
 - P1: botón de pedido por WhatsApp (el usuario eligió "solo visual" por ahora)
-- P1: versión bilingüe ES/EN
-- P2: fotos para tostones, papas y bebidas (hoy usan la mascota como placeholder)
+- P1: fotos para tostones, papas y bebidas (hoy usan la mascota como placeholder)
 - P2: modo nocturno verde oscuro
 - P2: descargable HTML estático de un solo archivo

@@ -1,8 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MessageCircle } from "lucide-react";
 import { waOrderLink } from "../data/menu";
+import { useLang, UI } from "../data/i18n";
 
-const ItemModal = ({ item, category, onClose }) => (
+const ItemModal = ({ item, category, onClose }) => {
+  const { lang } = useLang();
+  const t = UI[lang];
+  return (
   <AnimatePresence>
     {item && (
       <motion.div
@@ -25,7 +29,7 @@ const ItemModal = ({ item, category, onClose }) => (
             data-testid="item-modal-close"
             onClick={onClose}
             className="absolute top-3 right-3 z-10 w-10 h-10 flex items-center justify-center bg-olive text-cream hover:bg-terra transition-colors"
-            aria-label="Cerrar"
+            aria-label={t.close}
           >
             <X size={18} />
           </button>
@@ -55,7 +59,7 @@ const ItemModal = ({ item, category, onClose }) => (
           <div className="p-8 md:p-12 flex flex-col justify-between gap-8">
             <div>
               <p className="text-[10px] tracking-[0.3em] uppercase text-terra mb-3">
-                {category?.label} · Capítulo {category?.number}
+                {category?.label} · {t.chapter} {category?.number}
               </p>
               <h3 className="font-display text-4xl md:text-5xl tracking-tighter leading-[0.95] mb-5">{item.name}</h3>
               <p className="text-sm md:text-base font-light text-olive/80 leading-relaxed">{item.description}</p>
@@ -72,21 +76,21 @@ const ItemModal = ({ item, category, onClose }) => (
             <div>
               <div className="flex items-end justify-between border-t border-olive/20 pt-6">
                 <div>
-                  <p className="text-[10px] tracking-[0.3em] uppercase text-olive/60 mb-1">Precio</p>
+                  <p className="text-[10px] tracking-[0.3em] uppercase text-olive/60 mb-1">{t.price}</p>
                   <p className="font-display text-3xl md:text-4xl tracking-tight" data-testid="item-modal-price">{item.price}</p>
                 </div>
                 <p className="text-[10px] tracking-[0.2em] uppercase text-olive/50 text-right">
-                  Buena comida,<br />buenos momentos.
+                  {t.footerTagline1}<br />{t.footerTagline2}
                 </p>
               </div>
               <a
                 data-testid="item-modal-whatsapp"
-                href={waOrderLink(item)}
+                href={waOrderLink(item, lang)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-6 flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"
               >
-                <MessageCircle size={16} /> Pedir por WhatsApp
+                <MessageCircle size={16} /> {t.orderWhats}
               </a>
             </div>
           </div>
@@ -94,6 +98,7 @@ const ItemModal = ({ item, category, onClose }) => (
       </motion.div>
     )}
   </AnimatePresence>
-);
+  );
+};
 
 export default ItemModal;

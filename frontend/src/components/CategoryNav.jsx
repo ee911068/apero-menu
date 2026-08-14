@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { CATEGORIES } from "../data/menu";
+import { useLang } from "../data/i18n";
 
-const CategoryNav = () => {
-  const [active, setActive] = useState("burgers");
+const CategoryNav = ({ categories }) => {
+  const { lang, setLang } = useLang();
+  const [active, setActive] = useState(categories[0]?.id || "burgers");
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       let current = active;
-      for (const c of CATEGORIES) {
+      for (const c of categories) {
         const el = document.getElementById(c.id);
         if (el && el.getBoundingClientRect().top <= 140) current = c.id;
       }
@@ -17,7 +18,7 @@ const CategoryNav = () => {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [active]);
+  }, [active, categories]);
 
   const goTo = (id) => {
     if (window.__lenis) window.__lenis.scrollTo(`#${id}`, { offset: -72 });
@@ -31,7 +32,7 @@ const CategoryNav = () => {
         scrolled ? "bg-cream/95 backdrop-blur-md" : "bg-cream"
       }`}
     >
-      <div className="flex items-center gap-6 px-4 md:px-10 h-[64px]">
+      <div className="flex items-center gap-4 md:gap-6 px-4 md:px-10 h-[64px]">
         <button
           data-testid="nav-logo"
           onClick={() => (window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: "smooth" }))}
@@ -40,7 +41,7 @@ const CategoryNav = () => {
           <img src="/images/logo-green.png" alt="APERO" className="h-8 md:h-9 w-auto" />
         </button>
         <nav className="flex gap-5 md:gap-8 overflow-x-auto no-scrollbar ml-auto" style={{ scrollbarWidth: "none" }}>
-          {CATEGORIES.map((c) => (
+          {categories.map((c) => (
             <button
               key={c.id}
               data-testid={`nav-link-${c.id}`}
@@ -57,6 +58,20 @@ const CategoryNav = () => {
             </button>
           ))}
         </nav>
+        <div className="flex items-center shrink-0 border-l border-olive/20 pl-3 md:pl-4" data-testid="lang-switcher">
+          {["es", "en"].map((l) => (
+            <button
+              key={l}
+              data-testid={`lang-toggle-${l}`}
+              onClick={() => setLang(l)}
+              className={`text-[10px] font-bold tracking-[0.15em] uppercase px-2 py-1.5 transition-colors ${
+                lang === l ? "bg-olive text-cream" : "text-olive/50 hover:text-olive"
+              }`}
+            >
+              {l}
+            </button>
+          ))}
+        </div>
       </div>
     </header>
   );

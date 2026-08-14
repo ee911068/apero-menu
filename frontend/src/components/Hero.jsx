@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useLang, UI } from "../data/i18n";
 
 const line = {
   hidden: { y: "110%" },
@@ -11,6 +12,8 @@ const line = {
 };
 
 const Hero = () => {
+  const { lang } = useLang();
+  const t = UI[lang];
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const mascotY = useTransform(scrollYProgress, [0, 1], [0, 180]);
@@ -28,7 +31,7 @@ const Hero = () => {
             <path id="circlePath" d="M 60,60 m -44,0 a 44,44 0 1,1 88,0 a 44,44 0 1,1 -88,0" />
           </defs>
           <text className="fill-olive" style={{ fontSize: "11.5px", letterSpacing: "3px", fontFamily: "Montserrat" }}>
-            <textPath href="#circlePath">TE ESPERAN EN APERO • EST. 2025 •</textPath>
+            <textPath href="#circlePath">{t.heroBadge}</textPath>
           </text>
           <circle cx="60" cy="60" r="5" className="fill-terra" />
         </svg>
@@ -42,21 +45,21 @@ const Hero = () => {
           className="text-xs md:text-sm tracking-[0.35em] uppercase mb-6 text-olive/70"
           data-testid="hero-kicker"
         >
-          Café Bar &amp; Tapas — Menú digital
+          {t.kicker}
         </motion.p>
 
         <h1 className="font-display tracking-tighter leading-[0.9] text-[15vw] md:text-[11vw]">
-          {["BUENA", "COMIDA,"].map((t, i) => (
-            <span key={t} className="block overflow-hidden">
+          {t.heroLines.map((txt, i) => (
+            <span key={txt} className="block overflow-hidden">
               <motion.span custom={i} variants={line} initial="hidden" animate="show" className="block">
-                {t}
+                {txt}
               </motion.span>
             </span>
           ))}
           <span className="block overflow-hidden">
             <motion.span custom={2} variants={line} initial="hidden" animate="show" className="block">
-              <span className="text-outline">BUENOS</span>{" "}
-              <em className="text-terra">momentos.</em>
+              <span className="text-outline">{t.heroOutline}</span>{" "}
+              <em className="text-terra">{t.heroAccent}</em>
             </motion.span>
           </span>
         </h1>
@@ -68,8 +71,7 @@ const Hero = () => {
           className="mt-8 max-w-md text-sm md:text-base font-light text-olive/80"
           data-testid="hero-description"
         >
-          Experiencias gastronómicas modernas en un ambiente urbano, minimalista y acogedor.
-          Desliza y descubre el menú.
+          {t.heroDesc}
         </motion.p>
       </motion.div>
 
@@ -90,7 +92,7 @@ const Hero = () => {
         className="relative z-10 flex items-center justify-between px-6 md:px-14 lg:px-24 pb-6"
       >
         <div className="flex items-center gap-2 text-xs tracking-[0.25em] uppercase" data-testid="hero-scroll-hint">
-          <ArrowDown size={14} className="animate-bounce" /> Desliza
+          <ArrowDown size={14} className="animate-bounce" /> {t.scroll}
         </div>
         <p className="text-xs tracking-[0.25em] uppercase text-olive/60 hidden md:block">@aperocafebar</p>
       </motion.div>

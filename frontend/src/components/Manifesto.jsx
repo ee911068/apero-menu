@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
+import { useLang, UI, MANIFESTO_I18N } from "../data/i18n";
 
-const CHAPTERS = [
-  { n: "01", word: "MODERNA", copy: "Un menú que se siente de hoy: directo, fresco y sin pretensiones." },
-  { n: "02", word: "URBANA", copy: "Sabor de barra y calle, servido con estética de galería." },
-  { n: "03", word: "DIVERTIDA", copy: "Porque comer bien también es un juego: salsas, crunch y buena vibra." },
-  { n: "04", word: "MINIMALISTA", copy: "Pocos elementos, muchos matices. Lo esencial, bien hecho." },
-];
-
-const Manifesto = () => (
+const Manifesto = () => {
+  const { lang } = useLang();
+  const t = UI[lang];
+  const chapters = MANIFESTO_I18N[lang];
+  return (
   <section data-testid="manifesto-section" className="bg-olive text-cream px-6 md:px-14 lg:px-24 py-20 md:py-32">
     <motion.p
       initial={{ opacity: 0, y: 20 }}
@@ -16,10 +14,10 @@ const Manifesto = () => (
       transition={{ duration: 0.6 }}
       className="text-[10px] md:text-xs tracking-[0.35em] uppercase text-cream/60 mb-12"
     >
-      Manifiesto — Personalidad de marca
+      {t.manifestoKicker}
     </motion.p>
     <div>
-      {CHAPTERS.map((c, i) => (
+      {chapters.map((c, i) => (
         <motion.div
           key={c.n}
           data-testid={`manifesto-chapter-${c.n}`}
@@ -46,10 +44,11 @@ const Manifesto = () => (
     >
       <img src="/images/alitas-bbq.jpg" alt="Alitas BBQ Apero" className="w-full h-64 md:h-96 object-cover" />
       <p className="absolute bottom-4 left-4 md:bottom-8 md:left-8 font-display italic text-2xl md:text-4xl text-cream">
-        Te esperan en Apero.
+        {t.manifestoCaption}
       </p>
     </motion.div>
   </section>
-);
+  );
+};
 
 export default Manifesto;
