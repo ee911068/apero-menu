@@ -1,0 +1,106 @@
+{
+  "project_type": "Interactive Digital Menu Web Experience (Awwwards SOTD Level)",
+  "brand": {
+    "name": "APERO — Café Bar & Tapas",
+    "tagline": "Buena comida, buenos momentos. / Te esperan en Apero.",
+    "personality": "MODERNA, URBANA, DIVERTIDA, MINIMALISTA",
+    "language": "Español"
+  },
+  "theme": {
+    "mode": "Light",
+    "description": "Milky White background representing the minimalist cafe day vibe, contrasted with heavy Dark Olive Green typography and elements."
+  },
+  "typography": {
+    "fonts": [
+      {
+        "family": "Playfair Display",
+        "type": "serif",
+        "usage": "Primary/Display. Used for Hero kinetic text, section titles, and large editorial elements. Must use tight letter spacing (tracking-tighter) for sizes > 32px."
+      },
+      {
+        "family": "Montserrat",
+        "type": "sans-serif",
+        "usage": "Secondary/Body. Used for menu item descriptions, prices, buttons, and navigation. Use lighter weights (300/400) for descriptions, and bold (700) for labels."
+      }
+    ],
+    "instructions_to_main_agent": "MUST import Google Fonts for 'Playfair Display' and 'Montserrat' in index.css or via next/font (if Next.js) or standard HTML link tags. Do not use Inter or generic sans."
+  },
+  "colors": {
+    "palette": {
+      "background": "#F2EFE7",
+      "foreground": "#2F4F3E",
+      "primary": "#2F4F3E",
+      "primary_foreground": "#F2EFE7",
+      "accent": "#D35400",
+      "accent_foreground": "#FFFFFF",
+      "border": "rgba(47, 79, 62, 0.2)"
+    },
+    "instructions_to_main_agent": "Update tailwind.config.js and index.css variables to match these exact hex codes. Use the base #F2EFE7 (Milky White) for the main body background, and #2F4F3E (Dark Olive Green) for almost all text and structural borders. The accent (#D35400 - warm terracotta) is an E1 creative addition for interactive triggers, hover states, or 'Nuevo'/'Recomendado' badges."
+  },
+  "visual_enhancers": {
+    "surfaces": "Flat Solid surfaces. NO glassmorphism. This is an earthy, organic brand. Pop-ups and cards should use solid Milky White or Dark Olive backgrounds with crisp 1px borders.",
+    "borders_and_radius": "Keep it sharp or extremely subtle (rounded-sm). Avoid pill-shaped buttons unless it's a floating action button.",
+    "textures": "Add a subtle CSS/SVG grain/noise overlay fixed to the viewport to give it a tactile 'printed menu' feel."
+  },
+  "layouts": {
+    "hero": "Kinetic typography hero. Massive overlapping text 'APERO' using Framer Motion line-by-line reveal. Combine with an asymmetrical cutout or a beautifully placed interior photo.",
+    "navigation": "Sticky top bar with categories (Tapas, Cócteles, Café) that updates based on scroll position. Use solid background or extremely heavy blur so text does not overlap with content.",
+    "menu_section": "Editorial List Layout (Swiss Grid). Do NOT use standard grid cards for the menu. Use wide horizontal rows with a bottom border. Left: Item name & price. Middle: Description. Hovering the row reveals a floating product image that follows the cursor.",
+    "pop_ups": "Item detail modal. Animate presence via Framer Motion. Should take up 80% of screen, split 50/50 between a massive elegant photo and typography details.",
+    "marquees": "A continuous fast-moving horizontal marquee (CSS or framer-motion) with outline text (text-transparent stroke-primary) reading 'BUENA COMIDA, BUENOS MOMENTOS'."
+  },
+  "motion": {
+    "libraries": ["framer-motion", "lenis"],
+    "instructions_to_main_agent": "You MUST install and configure '@studio-freight/lenis' (or 'lenis') for momentum scrolling to achieve the Awwwards feel. Use framer-motion for page load reveals (staggered fade-up), marquee loops, and the pop-up modal."
+  },
+  "media": {
+    "image_urls": {
+      "hero_and_interior": [
+        {
+          "url": "https://images.unsplash.com/photo-1567880905822-56f8e06fe630?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwY2FmZSUyMGludGVyaW9yfGVufDB8fHx8MTc4NjczOTA3N3ww&ixlib=rb-4.1.0&q=85",
+          "category": "Hero / Intro Section"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1511081692775-05d0f180a065?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwzfHxtaW5pbWFsaXN0JTIwY2FmZSUyMGludGVyaW9yfGVufDB8fHx8MTc4NjczOTA3N3ww&ixlib=rb-4.1.0&q=85",
+          "category": "Parallax break section"
+        }
+      ],
+      "tapas": [
+        {
+          "url": "https://images.unsplash.com/photo-1502301103665-0b95cc738daf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwyfHxlbGVnYW50JTIwdGFwYXMlMjBmb29kJTIwZmxhdGxheXxlbnwwfHx8fDE3ODY3MzkwNzd8MA&ixlib=rb-4.1.0&q=85",
+          "description": "Meatballs tapas"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1624262198295-04b5f2720a89?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHw0fHxlbGVnYW50JTIwdGFwYXMlMjBmb29kJTIwZmxhdGxheXxlbnwwfHx8fDE3ODY3MzkwNzd8MA&ixlib=rb-4.1.0&q=85",
+          "description": "Tapas on green textile"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1753722158020-c41155a82cc8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA2ODl8MHwxfHNlYXJjaHwxfHxlbGVnYW50JTIwdGFwYXMlMjBmb29kJTIwZmxhdGxheXxlbnwwfHx8fDE3ODY3MzkwNzd8MA&ixlib=rb-4.1.0&q=85",
+          "description": "Assorted appetizers"
+        }
+      ],
+      "cocteles": [
+        {
+          "url": "https://images.unsplash.com/photo-1609951651556-5334e2706168?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxjcmFmdCUyMGNvY2t0YWlsJTIwYWVzdGhldGljfGVufDB8fHx8MTc4NjczOTA3N3ww&ixlib=rb-4.1.0&q=85",
+          "description": "Craft cocktail with rosemary"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1500217052183-bc01eee1a74e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwzfHxjcmFmdCUyMGNvY2t0YWlsJTIwYWVzdGhldGljfGVufDB8fHx8MTc4NjczOTA3N3ww&ixlib=rb-4.1.0&q=85",
+          "description": "Dark cocktail in rocks glass"
+        }
+      ]
+    },
+    "illustrations": "Replicate the 'line-art mascot' feel by using Lucide-React icons (e.g., Coffee, Wine) heavily stylized with 1px strokes, or embed a simple inline SVG of a continuous line drawing. Never use generic clip art."
+  },
+  "accessibility": {
+    "testing": "All interactive elements, buttons, menu rows, and modal close buttons MUST include a data-testid attribute in kebab-case (e.g., data-testid='menu-item-tapas-1')."
+  },
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "No generic centered layouts. Embrace asymmetry, wide spacing (p-12, p-24), and structural grids.",
+    "Do not use complete transparent background in header if content scrolls under it.",
+    "Avoid AI slop: do not use generic shadows or basic bootstrap-like grids.",
+    "Implement Lenis for smooth scroll.",
+    "Ensure all text is in Spanish.",
+    "Use framer-motion extensively for scroll reveals and hover interactions to satisfy the 'MUCHO MOVIMIENTO' requirement."
+  ]
+}
