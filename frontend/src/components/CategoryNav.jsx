@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLang } from "../data/i18n";
+import HoursBadge from "./HoursBadge";
 
 const CategoryNav = ({ categories }) => {
-  const { lang, setLang } = useLang();
+  const { lang, setLang, night } = useLang();
   const [active, setActive] = useState(categories[0]?.id || "burgers");
   const [scrolled, setScrolled] = useState(false);
 
@@ -38,7 +39,7 @@ const CategoryNav = ({ categories }) => {
           onClick={() => (window.__lenis ? window.__lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: "smooth" }))}
           className="shrink-0"
         >
-          <img src="/images/logo-green.png" alt="APERO" className="h-8 md:h-9 w-auto" />
+          <img src={night ? "/images/logo-white.png" : "/images/logo-green.png"} alt="APERO" className="h-8 md:h-9 w-auto" />
         </button>
         <nav className="flex gap-5 md:gap-8 overflow-x-auto no-scrollbar ml-auto" style={{ scrollbarWidth: "none" }}>
           {categories.map((c) => (
@@ -58,6 +59,7 @@ const CategoryNav = ({ categories }) => {
             </button>
           ))}
         </nav>
+        <HoursBadge />
         <div className="flex items-center shrink-0 border-l border-olive/20 pl-3 md:pl-4" data-testid="lang-switcher">
           {["es", "en"].map((l) => (
             <button

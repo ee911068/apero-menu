@@ -183,6 +183,7 @@ export const TRAY_UI = {
     send: "Enviar pedido por WhatsApp",
     keep: "Seguir explorando",
     only: "Pedir solo esto por WhatsApp",
+    pickSide: "Elige tu guarnición",
   },
   en: {
     add: "Add",
@@ -191,7 +192,20 @@ export const TRAY_UI = {
     send: "Send order via WhatsApp",
     keep: "Keep exploring",
     only: "Order just this via WhatsApp",
+    pickSide: "Choose your side",
   },
+};
+
+export const SIDE_LABELS = {
+  es: { papas: "Papas", tostones: "Tostones" },
+  en: { papas: "Fries", tostones: "Tostones" },
+};
+
+export const HOURS = { open: 12, close: 23 };
+
+export const HOURS_UI = {
+  es: { open: "Abierto ahora", closed: "Cerrado", opensAt: "abre" },
+  en: { open: "Open now", closed: "Closed", opensAt: "opens" },
 };
 
 const WA_NUMBER_URL = "https://wa.me/18296406701";
@@ -199,7 +213,9 @@ const WA_NUMBER_URL = "https://wa.me/18296406701";
 export const priceValue = (price) => Number(String(price).match(/\d+/)?.[0] || 0);
 
 export const waCartLink = (rows, lang = "es") => {
-  const lines = rows.map(({ item, qty }) => `• ${qty}× ${item.name} — ${item.price}`);
+  const lines = rows.map(
+    ({ item, qty, side }) => `• ${qty}× ${item.name}${side ? ` (${side})` : ""} — ${item.price}`
+  );
   const total = rows.reduce((s, { item, qty }) => s + priceValue(item.price) * qty, 0);
   const msg =
     lang === "es"

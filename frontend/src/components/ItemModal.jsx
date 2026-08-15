@@ -1,11 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X, MessageCircle } from "lucide-react";
+import { X, MessageCircle, Plus } from "lucide-react";
 import { waOrderLink } from "../data/menu";
-import { useLang, UI } from "../data/i18n";
+import { useLang, UI, TRAY_UI } from "../data/i18n";
 
 const ItemModal = ({ item, category, onClose }) => {
-  const { lang } = useLang();
+  const { lang, requestAdd } = useLang();
   const t = UI[lang];
+  const tt = TRAY_UI[lang];
   return (
   <AnimatePresence>
     {item && (
@@ -83,15 +84,24 @@ const ItemModal = ({ item, category, onClose }) => {
                   {t.footerTagline1}<br />{t.footerTagline2}
                 </p>
               </div>
-              <a
-                data-testid="item-modal-whatsapp"
-                href={waOrderLink(item, lang)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"
-              >
-                <MessageCircle size={16} /> {t.orderWhats}
-              </a>
+              <div className="mt-6 space-y-3">
+                <button
+                  data-testid="item-modal-add"
+                  onClick={() => requestAdd(item)}
+                  className="w-full flex items-center justify-center gap-2 bg-olive text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-terra transition-colors"
+                >
+                  <Plus size={16} /> {tt.add}
+                </button>
+                <a
+                  data-testid="item-modal-whatsapp"
+                  href={waOrderLink(item, lang)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 text-[10px] font-bold tracking-[0.2em] uppercase text-olive/60 hover:text-terra transition-colors"
+                >
+                  <MessageCircle size={14} /> {tt.only}
+                </a>
+              </div>
             </div>
           </div>
         </motion.div>

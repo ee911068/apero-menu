@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, X, Minus, Plus, Trash2, MessageCircle } from "lucide-react";
-import { useLang, TRAY_UI, waCartLink, priceValue } from "../data/i18n";
+import { useLang, TRAY_UI, SIDE_LABELS, waCartLink, priceValue } from "../data/i18n";
 
 const Tray = () => {
   const { lang, cart, menu, setQty, removeItem } = useLang();
@@ -10,7 +10,11 @@ const Tray = () => {
 
   const allItems = Object.values(menu).flat();
   const rows = cart
-    .map((c) => ({ ...c, item: allItems.find((i) => i.id === c.id) }))
+    .map((c) => ({
+      ...c,
+      item: allItems.find((i) => i.id === c.id),
+      sideLabel: c.side ? SIDE_LABELS[lang][c.side] : null,
+    }))
     .filter((r) => r.item);
   const count = rows.reduce((s, r) => s + r.qty, 0);
   const total = rows.reduce((s, r) => s + priceValue(r.item.price) * r.qty, 0);
@@ -77,16 +81,19 @@ const Tray = () => {
               </div>
 
               <div className="overflow-y-auto px-6 md:px-8">
-                {rows.map(({ item, qty }) => (
-                  <div key={item.id} data-testid={`tray-item-${item.id}`} className="flex items-center gap-4 py-4 border-b border-olive/10">
+                {rows.map(({ key, item, qty, sideLabel }) => (
+                  <div key={key} data-testid={`tray-item-${key}`} className="flex items-center gap-4 py-4 border-b border-olive/10">
                     <div className="flex-1 min-w-0">
-                      <p className="font-display text-xl tracking-tight truncate">{item.name}</p>
+                      <p className="font-display text-xl tracking-tight truncate">
+                        {item.name}
+                        {sideLabel && <span className="text-terra text-base"> · {sideLabel}</span>}
+                      </p>
                       <p className="text-xs text-olive/60">{item.price}</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <button
-                        data-testid={`qty-minus-${item.id}`}
-                        onClick={() => setQty(item.id, qty - 1)}
+                        data-testid={`qty-minus-${key}`}
+                        onClick={() => setQty(key, qty - 1)}
                         aria-label="Menos"
                         className="w-8 h-8 flex items-center justify-center border border-olive/30 hover:bg-olive hover:text-cream transition-colors"
                       >
@@ -94,8 +101,8 @@ const Tray = () => {
                       </button>
                       <span className="w-6 text-center text-sm font-bold">{qty}</span>
                       <button
-                        data-testid={`qty-plus-${item.id}`}
-                        onClick={() => setQty(item.id, qty + 1)}
+                        data-testid={`qty-plus-${key}`}
+                        onClick={() => setQty(key, qty + 1)}
                         aria-label="Más"
                         className="w-8 h-8 flex items-center justify-center border border-olive/30 hover:bg-olive hover:text-cream transition-colors"
                       >
@@ -104,8 +111,8 @@ const Tray = () => {
                     </div>
                     <span className="w-20 text-right font-bold text-sm">RD$ {priceValue(item.price) * qty}</span>
                     <button
-                      data-testid={`tray-remove-${item.id}`}
-                      onClick={() => removeItem(item.id)}
+                      data-testid={`tray-remove-${key}`}
+                      onClick={() => removeItem(key)}
                       aria-label="Quitar"
                       className="text-olive/40 hover:text-terra transition-colors"
                     >
@@ -122,7 +129,7 @@ const Tray = () => {
                 </div>
                 <a
                   data-testid="tray-send-whatsapp"
-                  href={waCartLink(rows, lang)}
+                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel })), lang)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"

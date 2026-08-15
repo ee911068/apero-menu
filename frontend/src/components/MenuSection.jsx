@@ -4,7 +4,7 @@ import { ArrowUpRight, Plus } from "lucide-react";
 import { useLang, UI, TRAY_UI } from "../data/i18n";
 
 const MenuSection = ({ category, items, onSelect }) => {
-  const { lang, addItem } = useLang();
+  const { lang, requestAdd } = useLang();
   const t = UI[lang];
   const tt = TRAY_UI[lang];
   const ref = useRef(null);
@@ -95,7 +95,7 @@ const MenuSection = ({ category, items, onSelect }) => {
                 {item.price}
                 <button
                   data-testid={`add-to-tray-${item.id}`}
-                  onClick={(e) => { e.stopPropagation(); addItem(item.id); }}
+                  onClick={(e) => { e.stopPropagation(); requestAdd(item); }}
                   aria-label={lang === "es" ? `Añadir ${item.name} al pedido` : `Add ${item.name} to order`}
                   className="flex items-center gap-1.5 bg-terra text-cream text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1.5 md:px-3 md:py-2 hover:bg-cream hover:text-olive transition-colors"
                 >

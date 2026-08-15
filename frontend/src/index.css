@@ -123,3 +123,39 @@ body {
     width: 100%;
     height: 24px;
 }
+
+/* Modo nocturno: verde oliva de fondo, crema al frente */
+.night.bg-cream,
+.night .bg-cream,
+.night [class*="bg-cream/"] {
+    background-color: #2F4F3E;
+}
+
+.night.text-olive,
+.night .text-olive {
+    color: #F2EFE7;
+}
+
+.night [class*="text-olive/"] {
+    color: rgba(242, 239, 231, 0.6);
+}
+
+.night [class*="border-olive"] {
+    border-color: rgba(242, 239, 231, 0.22);
+}
+
+.night .bg-olive {
+    background-color: #22392C;
+}
+
+.night .text-outline {
+    -webkit-text-stroke-color: #F2EFE7;
+}
+
+.night [data-testid="hero-mascot"] {
+    filter: grayscale(1) brightness(2.4);
+}
+
+.night .fill-olive {
+    fill: #F2EFE7;
+}
