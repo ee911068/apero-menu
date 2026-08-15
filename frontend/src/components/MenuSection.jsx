@@ -1,12 +1,12 @@
 import { useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, MessageCircle } from "lucide-react";
-import { waOrderLink } from "../data/menu";
-import { useLang, UI } from "../data/i18n";
+import { ArrowUpRight, Plus } from "lucide-react";
+import { useLang, UI, TRAY_UI } from "../data/i18n";
 
 const MenuSection = ({ category, items, onSelect }) => {
-  const { lang } = useLang();
+  const { lang, addItem } = useLang();
   const t = UI[lang];
+  const tt = TRAY_UI[lang];
   const ref = useRef(null);
   const [hovered, setHovered] = useState(null);
   const mx = useMotionValue(0);
@@ -93,17 +93,14 @@ const MenuSection = ({ category, items, onSelect }) => {
               </span>
               <span className="flex items-center gap-3 md:gap-4 font-bold text-sm md:text-lg tracking-wide group-hover:text-cream transition-colors">
                 {item.price}
-                <a
-                  data-testid={`wa-order-${item.id}`}
-                  href={waOrderLink(item, lang)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  aria-label={lang === "es" ? `Pedir ${item.name} por WhatsApp` : `Order ${item.name} on WhatsApp`}
+                <button
+                  data-testid={`add-to-tray-${item.id}`}
+                  onClick={(e) => { e.stopPropagation(); addItem(item.id); }}
+                  aria-label={lang === "es" ? `Añadir ${item.name} al pedido` : `Add ${item.name} to order`}
                   className="flex items-center gap-1.5 bg-terra text-cream text-[10px] font-bold tracking-[0.15em] uppercase px-2.5 py-1.5 md:px-3 md:py-2 hover:bg-cream hover:text-olive transition-colors"
                 >
-                  <MessageCircle size={14} /> <span className="hidden sm:inline">{t.order}</span>
-                </a>
+                  <Plus size={14} /> <span className="hidden sm:inline">{tt.add}</span>
+                </button>
                 <ArrowUpRight size={18} className="hidden md:block opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all text-terra" />
               </span>
             </span>

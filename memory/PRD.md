@@ -20,7 +20,10 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 - Paleta: #2F4F3E (verde oliva), #F2EFE7 (blanco leche), acento terracota #D35400
 - Tipografías: Playfair Display + Montserrat (según manual)
 
-## Implementado (2026-08-14)
+## Implementado (2026-08-14/15)
+- Fotos propias en TODAS las categorías: Jugos Naturales, Refrescos 16 oz, Tostones y Papas ya tienen su foto real (ya no usan la mascota de placeholder)
+- Pedido multi-platillo: botón "Añadir" en cada fila, bandeja flotante "Tu pedido" con cantidades, total y envío combinado por WhatsApp
+- Idioma recordado: la elección ES/EN se guarda (localStorage) y persiste entre visitas
 - Versión bilingüe ES/EN: interruptor ES|EN en la barra superior traduce todo al instante (hero, navegación, capítulos, platillos, pop-ups, manifiesto, footer, marquees y el mensaje de WhatsApp)
 - Pedidos por WhatsApp: botón "PEDIR" en cada fila del menú y botón grande "Pedir por WhatsApp" en cada pop-up, abren wa.me/18296406701 con mensaje pre-llenado (nombre + precio del platillo)
 - Hero cinético con reveal línea por línea enmascarado, mascota con parallax + flotación, badge circular giratorio "Te esperan en Apero"
@@ -40,6 +43,6 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 ## Backlog
 - P0: —
 - P1: botón de pedido por WhatsApp (el usuario eligió "solo visual" por ahora)
-- P1: fotos para tostones, papas y bebidas (hoy usan la mascota como placeholder)
+- P1: (fotos de bebidas y guarniciones — HECHO 2026-08-15)
 - P2: modo nocturno verde oscuro
 - P2: descargable HTML estático de un solo archivo

@@ -137,12 +137,14 @@ export const MENU_EN = {
       name: "Tostones",
       price: "RD$ 75",
       description: "Green plantain, pressed and fried — golden outside, soft inside.",
+      image: "/images/tostones.jpg",
     },
     {
       id: "papas",
       name: "Fries",
       price: "RD$ 100",
       description: "Classic-cut fries, crispy and seasoned with the house blend.",
+      image: "/images/papas.jpg",
     },
   ],
   bebidas: [
@@ -151,12 +153,14 @@ export const MENU_EN = {
       name: "Fresh Juices",
       price: "RD$ 100",
       description: "Fresh fruit of the day, made to order. Ask for the available flavors.",
+      image: "/images/jugos.jpg",
     },
     {
       id: "refrescos",
       name: "Soft Drinks 16 oz",
       price: "RD$ 50",
       description: "Ice cold, as they should be. The perfect sidekick for any tapa.",
+      image: "/images/refrescos.jpg",
     },
   ],
   ninos: [
@@ -169,4 +173,37 @@ export const MENU_EN = {
       badge: "Kids",
     },
   ],
+};
+
+export const TRAY_UI = {
+  es: {
+    add: "Añadir",
+    tray: "Tu pedido",
+    total: "Total",
+    send: "Enviar pedido por WhatsApp",
+    keep: "Seguir explorando",
+    only: "Pedir solo esto por WhatsApp",
+  },
+  en: {
+    add: "Add",
+    tray: "Your order",
+    total: "Total",
+    send: "Send order via WhatsApp",
+    keep: "Keep exploring",
+    only: "Order just this via WhatsApp",
+  },
+};
+
+const WA_NUMBER_URL = "https://wa.me/18296406701";
+
+export const priceValue = (price) => Number(String(price).match(/\d+/)?.[0] || 0);
+
+export const waCartLink = (rows, lang = "es") => {
+  const lines = rows.map(({ item, qty }) => `• ${qty}× ${item.name} — ${item.price}`);
+  const total = rows.reduce((s, { item, qty }) => s + priceValue(item.price) * qty, 0);
+  const msg =
+    lang === "es"
+      ? `Hola APERO, quiero pedir:\n${lines.join("\n")}\nTotal: RD$ ${total}. ¡Gracias!`
+      : `Hi APERO, I'd like to order:\n${lines.join("\n")}\nTotal: RD$ ${total}. Thanks!`;
+  return `${WA_NUMBER_URL}?text=${encodeURIComponent(msg)}`;
 };

@@ -68,12 +68,14 @@ export const MENU = {
       name: "Tostones",
       price: "RD$ 75",
       description: "Plátano verde prensado y frito, dorado por fuera y suave por dentro.",
+      image: "/images/tostones.jpg",
     },
     {
       id: "papas",
       name: "Papas",
       price: "RD$ 100",
       description: "Papas fritas de corte clásico, crocantes y sazonadas con la mezcla de la casa.",
+      image: "/images/papas.jpg",
     },
   ],
   bebidas: [
@@ -82,12 +84,14 @@ export const MENU = {
       name: "Jugos Naturales",
       price: "RD$ 100",
       description: "Fruta fresca del día, preparada al momento. Pregunta por los sabores disponibles.",
+      image: "/images/jugos.jpg",
     },
     {
       id: "refrescos",
       name: "Refrescos 16 oz",
       price: "RD$ 50",
       description: "Bien fríos, como deben ser. El acompañante perfecto de cualquier tapa.",
+      image: "/images/refrescos.jpg",
     },
   ],
   ninos: [
