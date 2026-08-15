@@ -184,6 +184,11 @@ export const TRAY_UI = {
     keep: "Seguir explorando",
     only: "Pedir solo esto por WhatsApp",
     pickSide: "Elige tu guarnición",
+    pickSauce: "Elige tu salsa",
+    noteTitle: "¿Alguna nota para la cocina?",
+    notePlaceholder: "Ej.: sin pepinillos…",
+    noteSkip: "Continuar sin nota",
+    confirm: "Añadir al pedido",
   },
   en: {
     add: "Add",
@@ -193,6 +198,11 @@ export const TRAY_UI = {
     keep: "Keep exploring",
     only: "Order just this via WhatsApp",
     pickSide: "Choose your side",
+    pickSauce: "Choose your sauce",
+    noteTitle: "Any note for the kitchen?",
+    notePlaceholder: "E.g.: no pickles…",
+    noteSkip: "Continue without note",
+    confirm: "Add to order",
   },
 };
 
@@ -201,11 +211,26 @@ export const SIDE_LABELS = {
   en: { papas: "Fries", tostones: "Tostones" },
 };
 
-export const HOURS = { open: 12, close: 23 };
+export const SAUCE_OPTIONS = {
+  "alitas-bbq": ["Buffalo", "BBQ"],
+  "alitas-buffalo": ["Buffalo", "BBQ"],
+  "crispy-tenders": ["Honey Spicy Mayo", "Ranch Apero", "Miel Picante", "Salsa de Ajo y Cilantro"],
+};
+
+export const NOTE_CHIPS = {
+  es: ["Sin mermelada de cebolla y tocino", "Sin pepinillos", "Sin cole slaw"],
+  en: ["No onion-bacon jam", "No pickles", "No coleslaw"],
+};
+
+export const HOURS = {
+  0: { open: 12, close: 25 },
+  5: { open: 18, close: 24 },
+  6: { open: 12, close: 25 },
+};
 
 export const HOURS_UI = {
-  es: { open: "Abierto ahora", closed: "Cerrado", opensAt: "abre" },
-  en: { open: "Open now", closed: "Closed", opensAt: "opens" },
+  es: { open: "Abierto ahora", closed: "Cerrado", opensAt: "abre", days: ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"] },
+  en: { open: "Open now", closed: "Closed", opensAt: "opens", days: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"] },
 };
 
 const WA_NUMBER_URL = "https://wa.me/18296406701";
@@ -213,9 +238,12 @@ const WA_NUMBER_URL = "https://wa.me/18296406701";
 export const priceValue = (price) => Number(String(price).match(/\d+/)?.[0] || 0);
 
 export const waCartLink = (rows, lang = "es") => {
-  const lines = rows.map(
-    ({ item, qty, side }) => `• ${qty}× ${item.name}${side ? ` (${side})` : ""} — ${item.price}`
-  );
+  const lines = rows.map(({ item, qty, side, sauce, note }) => {
+    const opts = [side, sauce].filter(Boolean).join(" · ");
+    let line = `• ${qty}× ${item.name}${opts ? ` (${opts})` : ""} — ${item.price}`;
+    if (note) line += `\n  ${lang === "es" ? "Nota" : "Note"}: ${note}`;
+    return line;
+  });
   const total = rows.reduce((s, { item, qty }) => s + priceValue(item.price) * qty, 0);
   const msg =
     lang === "es"

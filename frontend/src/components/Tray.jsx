@@ -81,14 +81,17 @@ const Tray = () => {
               </div>
 
               <div className="overflow-y-auto px-6 md:px-8">
-                {rows.map(({ key, item, qty, sideLabel }) => (
+                {rows.map(({ key, item, qty, sideLabel, sauce, note }) => (
                   <div key={key} data-testid={`tray-item-${key}`} className="flex items-center gap-4 py-4 border-b border-olive/10">
                     <div className="flex-1 min-w-0">
                       <p className="font-display text-xl tracking-tight truncate">
                         {item.name}
-                        {sideLabel && <span className="text-terra text-base"> · {sideLabel}</span>}
+                        {(sideLabel || sauce) && (
+                          <span className="text-terra text-base"> · {[sideLabel, sauce].filter(Boolean).join(" · ")}</span>
+                        )}
                       </p>
                       <p className="text-xs text-olive/60">{item.price}</p>
+                      {note && <p className="text-xs italic text-olive/60 mt-1">“{note}”</p>}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -129,7 +132,7 @@ const Tray = () => {
                 </div>
                 <a
                   data-testid="tray-send-whatsapp"
-                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel })), lang)}
+                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel, sauce: r.sauce, note: r.note })), lang)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"

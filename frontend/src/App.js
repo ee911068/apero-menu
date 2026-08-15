@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 import Tray from "./components/Tray";
 import SidePicker from "./components/SidePicker";
 import { MENU } from "./data/menu";
-import { LangContext, UI, CATEGORIES_I18N, MENU_EN } from "./data/i18n";
+import { LangContext, UI, CATEGORIES_I18N, MENU_EN, SAUCE_OPTIONS } from "./data/i18n";
 
 const SIDE_CATEGORIES = ["burgers", "chicken"];
 
@@ -50,13 +50,13 @@ function App() {
     document.body.style.backgroundColor = night ? "#2F4F3E" : "#F2EFE7";
   }, [night]);
 
-  const addItem = (id, side = null) =>
+  const addItem = (id, side = null, sauce = null, note = null) =>
     setCart((c) => {
-      const key = side ? `${id}__${side}` : id;
+      const key = [id, side, sauce, note].filter(Boolean).join("|");
       const found = c.find((x) => x.key === key);
       return found
         ? c.map((x) => (x.key === key ? { ...x, qty: x.qty + 1 } : x))
-        : [...c, { key, id, side, qty: 1 }];
+        : [...c, { key, id, side, sauce, note, qty: 1 }];
     });
   const removeItem = (key) => setCart((c) => c.filter((x) => x.key !== key));
   const setQty = (key, qty) =>
@@ -64,19 +64,21 @@ function App() {
       qty <= 0 ? c.filter((x) => x.key !== key) : c.map((x) => (x.key === key ? { ...x, qty } : x))
     );
 
-  const needsSide = (item) => SIDE_CATEGORIES.some((c) => menu[c]?.some((i) => i.id === item.id));
-
   const requestAdd = (item) => {
-    if (needsSide(item)) {
+    const steps = [];
+    if (SIDE_CATEGORIES.some((c) => menu[c]?.some((i) => i.id === item.id))) steps.push("side");
+    if (Object.keys(SAUCE_OPTIONS).includes(item.id)) steps.push("sauce");
+    if (item.id === "la-apera") steps.push("note");
+    if (steps.length) {
       setSelected(null);
-      setPickerItem(item);
+      setPickerItem({ ...item, steps });
     } else {
       addItem(item.id);
     }
   };
 
-  const pickSide = (side) => {
-    if (pickerItem) addItem(pickerItem.id, side);
+  const completePick = (id, side, sauce, note) => {
+    addItem(id, side, sauce, note);
     setPickerItem(null);
   };
 
@@ -84,7 +86,7 @@ function App() {
     <LangContext.Provider
       value={{
         lang, setLang, cart, addItem, removeItem, setQty, menu, night,
-        requestAdd, pickerItem, pickSide, closePicker: () => setPickerItem(null),
+        requestAdd, pickerItem, completePick, closePicker: () => setPickerItem(null),
       }}
     >
       <div className={`bg-cream text-olive min-h-screen ${night ? "night" : ""}`}>

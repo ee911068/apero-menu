@@ -21,8 +21,10 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 - Tipografías: Playfair Display + Montserrat (según manual)
 
 ## Implementado (2026-08-14/15)
-- Selector de guarnición: al añadir La Apera, tenders o alitas se abre un picker con fotos (Papas / Tostones); la bandeja y el mensaje de WhatsApp separan cada combinación ("Alitas BBQ · Tostones")
-- Badge de horario en la barra: "Abierto ahora" (punto verde) / "Cerrado · abre 12:00" según config HOURS (12:00–23:00 todos los días — pendiente confirmar horario real del cliente)
+- Horario REAL del bar: viernes 6:00pm–12:00am, sábado y domingo 12:00pm–1:00am (lun–jue cerrado); el badge calcula apertura incluso pasada medianoche y muestra el próximo día/hora de apertura
+- Selector de salsa: alitas (Buffalo/BBQ) y Crispy Tenders (Honey Spicy Mayo, Ranch Apero, Miel Picante, Salsa de Ajo y Cilantro) — picker en 2 pasos: guarnición → salsa
+- Nota de cocina para La Apera: textarea + chips rápidos ("Sin mermelada de cebolla y tocino", "Sin pepinillos", "Sin cole slaw"); la nota aparece en la bandeja y en el mensaje de WhatsApp
+- Picker multi-paso con botón de retroceso, todo bilingüe
 - Modo nocturno automático 18:00–06:00: fondo verde oliva, texto crema, logo blanco, mascota aclarada, badge circular en crema
 - Ajustes del cliente (2026-08-15): tira de fotos del hero ELIMINADA (no le gustó); badge circular del hero solo dice "TE ESPERAN EN APERO"; descripciones actualizadas — Crispy Tenders: "5 tiras de pollo + papas o tostones + salsa de tu elección", Alitas BBQ/Buffalo: "6 alitas de pollo + papas o tostones + salsa de tu elección", Refrescos: "Bien fríos como deben ser, el acompañante perfecto para nuestros servicios" (ES y EN); footer © 2025
 - Fotos propias en TODAS las categorías: Jugos Naturales, Refrescos 16 oz, Tostones y Papas ya tienen su foto real (ya no usan la mascota de placeholder)
