@@ -1,12 +1,19 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, X, Minus, Plus, Trash2, MessageCircle } from "lucide-react";
+import { ShoppingBag, X, Minus, Plus, Trash2, MessageCircle, MapPin, Bike } from "lucide-react";
 import { useLang, TRAY_UI, SIDE_LABELS, waCartLink, priceValue } from "../data/i18n";
 
 const Tray = () => {
   const { lang, cart, menu, setQty, removeItem } = useLang();
   const t = TRAY_UI[lang];
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState(() => localStorage.getItem("apero-name") || "");
+  const [mode, setMode] = useState("pickup");
+
+  const onName = (e) => {
+    setName(e.target.value);
+    localStorage.setItem("apero-name", e.target.value);
+  };
 
   const allItems = Object.values(menu).flat();
   const rows = cart
@@ -126,13 +133,37 @@ const Tray = () => {
               </div>
 
               <div className="px-6 md:px-8 py-5 border-t border-olive/15 space-y-4">
+                <input
+                  data-testid="tray-customer-name"
+                  value={name}
+                  onChange={onName}
+                  placeholder={t.namePlaceholder}
+                  className="w-full bg-transparent border border-olive/25 px-4 py-3 text-sm focus:outline-none focus:border-terra"
+                />
+                <div className="grid grid-cols-2 gap-2" data-testid="tray-mode-picker">
+                  {["pickup", "delivery"].map((m) => (
+                    <button
+                      key={m}
+                      data-testid={`tray-mode-${m}`}
+                      onClick={() => setMode(m)}
+                      className={`flex items-center justify-center gap-2 py-3 text-[10px] font-bold tracking-[0.2em] uppercase border transition-colors ${
+                        mode === m
+                          ? "bg-olive text-cream border-olive"
+                          : "border-olive/25 text-olive/60 hover:border-olive"
+                      }`}
+                    >
+                      {m === "pickup" ? <MapPin size={13} /> : <Bike size={13} />}
+                      {m === "pickup" ? t.pickup : t.delivery}
+                    </button>
+                  ))}
+                </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] tracking-[0.3em] uppercase text-olive/60">{t.total}</span>
                   <span className="font-display text-3xl tracking-tight" data-testid="tray-sheet-total">RD$ {total}</span>
                 </div>
                 <a
                   data-testid="tray-send-whatsapp"
-                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel, sauce: r.sauce, note: r.note })), lang)}
+                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel, sauce: r.sauce, note: r.note })), lang, { name: name.trim(), mode })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"

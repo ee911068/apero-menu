@@ -189,6 +189,9 @@ export const TRAY_UI = {
     notePlaceholder: "Ej.: sin pepinillos…",
     noteSkip: "Continuar sin nota",
     confirm: "Añadir al pedido",
+    namePlaceholder: "Tu nombre (ej.: María)",
+    pickup: "Pick up",
+    delivery: "Delivery",
   },
   en: {
     add: "Add",
@@ -203,6 +206,9 @@ export const TRAY_UI = {
     notePlaceholder: "E.g.: no pickles…",
     noteSkip: "Continue without note",
     confirm: "Add to order",
+    namePlaceholder: "Your name (e.g.: Maria)",
+    pickup: "Pick up",
+    delivery: "Delivery",
   },
 };
 
@@ -237,17 +243,24 @@ const WA_NUMBER_URL = "https://wa.me/18296406701";
 
 export const priceValue = (price) => Number(String(price).match(/\d+/)?.[0] || 0);
 
-export const waCartLink = (rows, lang = "es") => {
+export const waCartLink = (rows, lang = "es", opts = {}) => {
+  const { name = "", mode = "pickup" } = opts;
   const lines = rows.map(({ item, qty, side, sauce, note }) => {
-    const opts = [side, sauce].filter(Boolean).join(" · ");
-    let line = `• ${qty}× ${item.name}${opts ? ` (${opts})` : ""} — ${item.price}`;
+    const extras = [side, sauce].filter(Boolean).join(" · ");
+    let line = `• ${qty}× ${item.name}${extras ? ` (${extras})` : ""} — ${item.price}`;
     if (note) line += `\n  ${lang === "es" ? "Nota" : "Note"}: ${note}`;
     return line;
   });
   const total = rows.reduce((s, { item, qty }) => s + priceValue(item.price) * qty, 0);
-  const msg =
+  const greeting =
     lang === "es"
-      ? `Hola APERO, quiero pedir:\n${lines.join("\n")}\nTotal: RD$ ${total}. ¡Gracias!`
-      : `Hi APERO, I'd like to order:\n${lines.join("\n")}\nTotal: RD$ ${total}. Thanks!`;
+      ? name ? `Hola APERO, soy ${name}, quiero pedir:` : "Hola APERO, quiero pedir:"
+      : name ? `Hi APERO, I'm ${name}, I'd like to order:` : "Hi APERO, I'd like to order:";
+  const modeLine =
+    lang === "es"
+      ? mode === "delivery" ? "Entrega: Delivery a domicilio" : "Entrega: Pick up (lo recojo)"
+      : mode === "delivery" ? "Delivery to my address" : "Pick up at the bar";
+  const closing = lang === "es" ? "¡Gracias!" : "Thanks!";
+  const msg = `${greeting}\n${lines.join("\n")}\n${modeLine}\nTotal: RD$ ${total}. ${closing}`;
   return `${WA_NUMBER_URL}?text=${encodeURIComponent(msg)}`;
 };
