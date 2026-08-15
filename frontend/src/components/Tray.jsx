@@ -9,10 +9,15 @@ const Tray = () => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState(() => localStorage.getItem("apero-name") || "");
   const [mode, setMode] = useState("pickup");
+  const [address, setAddress] = useState(() => localStorage.getItem("apero-address") || "");
 
   const onName = (e) => {
     setName(e.target.value);
     localStorage.setItem("apero-name", e.target.value);
+  };
+  const onAddress = (e) => {
+    setAddress(e.target.value);
+    localStorage.setItem("apero-address", e.target.value);
   };
 
   const allItems = Object.values(menu).flat();
@@ -157,13 +162,23 @@ const Tray = () => {
                     </button>
                   ))}
                 </div>
+                {mode === "delivery" && (
+                  <textarea
+                    data-testid="tray-address"
+                    value={address}
+                    onChange={onAddress}
+                    placeholder={t.addressPlaceholder}
+                    rows={2}
+                    className="w-full bg-transparent border border-olive/25 px-4 py-3 text-sm focus:outline-none focus:border-terra resize-none"
+                  />
+                )}
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] tracking-[0.3em] uppercase text-olive/60">{t.total}</span>
                   <span className="font-display text-3xl tracking-tight" data-testid="tray-sheet-total">RD$ {total}</span>
                 </div>
                 <a
                   data-testid="tray-send-whatsapp"
-                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel, sauce: r.sauce, note: r.note })), lang, { name: name.trim(), mode })}
+                  href={waCartLink(rows.map((r) => ({ item: r.item, qty: r.qty, side: r.sideLabel, sauce: r.sauce, note: r.note })), lang, { name: name.trim(), mode, address: address.trim() })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 bg-terra text-cream py-4 text-xs font-bold tracking-[0.25em] uppercase hover:bg-olive transition-colors"

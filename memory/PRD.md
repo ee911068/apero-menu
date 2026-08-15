@@ -21,6 +21,7 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 - Tipografías: Playfair Display + Montserrat (según manual)
 
 ## Implementado (2026-08-14/15)
+- Dirección de delivery: al elegir Delivery aparece un campo de dirección (guardado en localStorage) que viaja en el WhatsApp como "Dirección: …"; en Pick up se oculta
 - Nombre del cliente en la bandeja (se guarda en localStorage) y selector Pick up / Delivery: el WhatsApp llega personalizado ("Hola APERO, soy María…") con línea de entrega
 - Horario REAL del bar: viernes 6:00pm–12:00am, sábado y domingo 12:00pm–1:00am (lun–jue cerrado); el badge calcula apertura incluso pasada medianoche y muestra el próximo día/hora de apertura
 - Selector de salsa: alitas (Buffalo/BBQ) y Crispy Tenders (Honey Spicy Mayo, Ranch Apero, Miel Picante, Salsa de Ajo y Cilantro) — picker en 2 pasos: guarnición → salsa

@@ -192,6 +192,7 @@ export const TRAY_UI = {
     namePlaceholder: "Tu nombre (ej.: María)",
     pickup: "Pick up",
     delivery: "Delivery",
+    addressPlaceholder: "Dirección de entrega (calle, número, sector)",
   },
   en: {
     add: "Add",
@@ -209,6 +210,7 @@ export const TRAY_UI = {
     namePlaceholder: "Your name (e.g.: Maria)",
     pickup: "Pick up",
     delivery: "Delivery",
+    addressPlaceholder: "Delivery address (street, number, area)",
   },
 };
 
@@ -256,10 +258,12 @@ export const waCartLink = (rows, lang = "es", opts = {}) => {
     lang === "es"
       ? name ? `Hola APERO, soy ${name}, quiero pedir:` : "Hola APERO, quiero pedir:"
       : name ? `Hi APERO, I'm ${name}, I'd like to order:` : "Hi APERO, I'd like to order:";
-  const modeLine =
+  let modeLine =
     lang === "es"
       ? mode === "delivery" ? "Entrega: Delivery a domicilio" : "Entrega: Pick up (lo recojo)"
       : mode === "delivery" ? "Delivery to my address" : "Pick up at the bar";
+  if (mode === "delivery" && opts.address)
+    modeLine += `\n${lang === "es" ? "Dirección" : "Address"}: ${opts.address}`;
   const closing = lang === "es" ? "¡Gracias!" : "Thanks!";
   const msg = `${greeting}\n${lines.join("\n")}\n${modeLine}\nTotal: RD$ ${total}. ${closing}`;
   return `${WA_NUMBER_URL}?text=${encodeURIComponent(msg)}`;
