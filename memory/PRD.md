@@ -21,7 +21,7 @@ Generar un menú digital interactivo, responsive, basado 100% en la identidad vi
 - Tipografías: Playfair Display + Montserrat (según manual)
 
 ## Implementado (2026-08-14/15)
-- Tira fotográfica en cámara lenta en el hero: 10 fotos de platillos en marcos rotados, deriva horizontal continua (70s) + zoom Ken Burns por foto; la mascota se oculta en móvil para no taparla
+- Ajustes del cliente (2026-08-15): tira de fotos del hero ELIMINADA (no le gustó); badge circular del hero solo dice "TE ESPERAN EN APERO"; descripciones actualizadas — Crispy Tenders: "5 tiras de pollo + papas o tostones + salsa de tu elección", Alitas BBQ/Buffalo: "6 alitas de pollo + papas o tostones + salsa de tu elección", Refrescos: "Bien fríos como deben ser, el acompañante perfecto para nuestros servicios" (ES y EN); footer © 2025
 - Fotos propias en TODAS las categorías: Jugos Naturales, Refrescos 16 oz, Tostones y Papas ya tienen su foto real (ya no usan la mascota de placeholder)
 - Pedido multi-platillo: botón "Añadir" en cada fila, bandeja flotante "Tu pedido" con cantidades, total y envío combinado por WhatsApp
 - Idioma recordado: la elección ES/EN se guarda (localStorage) y persiste entre visitas

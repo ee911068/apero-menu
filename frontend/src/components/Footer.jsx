@@ -50,7 +50,7 @@ const Footer = () => {
           {t.footerTagline1}<br />{t.footerTagline2}
         </p>
         <p className="text-[10px] tracking-[0.25em] uppercase text-cream/40">
-          © 2026 APERO Café Bar &amp; Tapas
+          © 2025 APERO Café Bar &amp; Tapas
         </p>
       </div>
     </div>

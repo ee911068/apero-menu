@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useLang, UI } from "../data/i18n";
-import PhotoStrip from "./PhotoStrip";
 
 const line = {
   hidden: { y: "110%" },
@@ -76,14 +75,12 @@ const Hero = () => {
         </motion.p>
       </motion.div>
 
-      <PhotoStrip />
-
       <motion.div
         style={{ y: mascotY }}
         initial={{ opacity: 0, x: 80 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.9, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-none absolute bottom-32 right-2 md:right-24 md:bottom-48 w-36 md:w-56 z-0 hidden md:block"
+        className="pointer-events-none absolute bottom-8 right-2 md:right-24 w-40 md:w-64 z-0"
       >
         <img src="/images/mascot.png" alt="Ilustración Apero" className="w-full animate-float" data-testid="hero-mascot" />
       </motion.div>
